@@ -1,0 +1,9 @@
+.env
+.DS_Store
+known_faces/
+face_model.yml
+face_labels.json
+__pycache__/
+*.pyc
+venv/
+.venv/
