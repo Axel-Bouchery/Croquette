@@ -34,7 +34,7 @@ class FaceEngine:
                 self._mp_face = mp.solutions.face_detection
                 self._detector = self._mp_face.FaceDetection(
                     model_selection=0,  # 0 = short range (< 2m), best for robot
-                    min_detection_confidence=0.5
+                    min_detection_confidence=0.4
                 )
                 self._use_mediapipe = True
                 print("[FaceEngine] Détecteur utilisé : MediaPipe Solutions")

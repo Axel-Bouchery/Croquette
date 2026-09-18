@@ -136,7 +136,7 @@ class GUIOverlay:
                     bx, by, bw, bh = max(0, x-w//2), y, w*2, h*3
                     cv2.rectangle(display_frame, (bx, by), (bx+bw, by+bh), COLOR_RED, 3)
                     cv2.rectangle(display_frame, (x, y), (x+w, y+h), COLOR_RED, 3)
-                    self._put_text_with_background(display_frame, "⚠ ALERTE ⚠", (x - 20, y - 15), 0.8, COLOR_WHITE, COLOR_RED)
+                    self._put_text_with_background(display_frame, "⚠ ALERTE ⚠ ELIMINATION !", (x - 20, y - 15), 0.8, COLOR_WHITE, COLOR_RED)
                     
         # Alert frame border
         if state == RobotState.ALERT and int(now * 3.33) % 2 == 0:
