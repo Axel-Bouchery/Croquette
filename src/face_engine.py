@@ -197,10 +197,14 @@ class FaceEngine:
 
     def _crop_and_prepare_face(self, frame: np.ndarray, x: int, y: int, w: int, h: int) -> Optional[np.ndarray]:
         fh, fw = frame.shape[:2]
-        x1 = max(0, x)
-        y1 = max(0, y)
-        x2 = min(fw, x + w)
-        y2 = min(fh, y + h)
+
+        margin_x = max(20, int(w * 0.15))
+        margin_y = max(20, int(h * 0.20))
+
+        x1 = max(0, x - margin_x)
+        y1 = max(0, y - margin_y)
+        x2 = min(fw, x + w + margin_x)
+        y2 = min(fh, y + h + margin_y)
 
         cw = x2 - x1
         ch = y2 - y1
@@ -211,8 +215,31 @@ class FaceEngine:
         crop = frame[y1:y2, x1:x2]
         if crop.size == 0:
             return None
-            
+
         gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
-        resized = cv2.resize(gray, (200, 200))
+
+        # Conserve une zone carrée pour le modèle LBPH, plus stable sur les images de test et en flux réel.
+        size = max(cw, ch)
+        pad = int((size - min(cw, ch)) / 2)
+        if cw > ch:
+            pad_top = 0
+            pad_bottom = 0
+            pad_left = pad
+            pad_right = pad
+        else:
+            pad_top = pad
+            pad_bottom = pad
+            pad_left = 0
+            pad_right = 0
+
+        padded = cv2.copyMakeBorder(
+            gray,
+            pad_top, pad_bottom,
+            pad_left, pad_right,
+            cv2.BORDER_CONSTANT,
+            value=0
+        )
+
+        resized = cv2.resize(padded, (220, 220), interpolation=cv2.INTER_AREA)
         equalized = cv2.equalizeHist(resized)
         return equalized

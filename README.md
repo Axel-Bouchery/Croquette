@@ -162,9 +162,9 @@ Avant de lancer le système autonome, il faut apprendre les visages à reconnaî
    │   ├── photo1.jpg
    │   ├── photo2.jpg
    │   └── photo3.jpg
-   └── Alice/
-       ├── 01.jpg
-       └── 02.jpg
+   └── Gaby/
+       ├── photo1.jpg
+       └── photo2.jpg
    ```
    > **Conseils photos** : Ajoutez entre 5 et 15 photos variées par personne (angles de tête légers, expressions différentes, conditions lumineuses diverses) avec le visage bien visible.
 
